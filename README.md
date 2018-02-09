@@ -17,7 +17,7 @@ const countItems = (
   hugeArrayOfItems,
   hugeArrayOfItemsAlreadyFilteredElsewhere
 ) => {
-  let count = userWantsFilteredItems
+  const count = userWantsFilteredItems
     ? hugeArrayOfItemsAlreadyFilteredElsewhere.length
     : hugeArrayOfItems.length
   console.log(count)
