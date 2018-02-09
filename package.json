@@ -6,6 +6,9 @@
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "test": "jest",
     "build": "babel src --out-dir lib --ignore src/rapt.test.js && cp src/rapt.js.flow lib",
