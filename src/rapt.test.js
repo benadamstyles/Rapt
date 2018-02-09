@@ -25,6 +25,11 @@ describe('Rapt methods', () => {
           .map(String)
           .val()
       ).toBe('10')
+      expect(
+        rapt(10)
+          .map(x => x)
+          .val()
+      ).toBe(10)
     })
   })
 })
