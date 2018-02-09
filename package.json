@@ -1,0 +1,28 @@
+{
+  "name": "rapt",
+  "version": "1.0.0",
+  "description": "Wrap any value so you can map over it",
+  "main": "lib/rapt.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leeds-eBooks/rapt.git"
+  },
+  "keywords": [
+    "javascript",
+    "functional",
+    "map",
+    "wrap",
+    "chain",
+    "pipe",
+    "through"
+  ],
+  "author": "Ben Styles",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Leeds-eBooks/rapt/issues"
+  },
+  "homepage": "https://github.com/Leeds-eBooks/rapt#readme"
+}
