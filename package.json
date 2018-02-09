@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Wrap any value so you can map over it",
   "main": "lib/rapt.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "jest"
   },
@@ -24,5 +27,12 @@
   "bugs": {
     "url": "https://github.com/Leeds-eBooks/rapt/issues"
   },
-  "homepage": "https://github.com/Leeds-eBooks/rapt#readme"
+  "homepage": "https://github.com/Leeds-eBooks/rapt#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "flow-bin": "^0.65.0",
+    "jest": "^22.2.1"
+  }
 }
