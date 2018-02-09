@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Wrap any value so you can map over it",
   "main": "lib/rapt.js",
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build":
+      "babel src --out-dir lib --ignore src/rapt.test.js && cp src/rapt.js.flow lib",
+    "prepublish": "yarn build"
   },
   "repository": {
     "type": "git",
@@ -34,5 +35,12 @@
     "babel-preset-env": "^1.6.1",
     "flow-bin": "^0.65.0",
     "jest": "^22.2.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": false,
+    "semi": false,
+    "parser": "flow"
   }
 }
