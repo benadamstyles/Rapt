@@ -47,7 +47,6 @@
     "singleQuote": true,
     "trailingComma": "es5",
     "bracketSpacing": false,
-    "semi": false,
-    "parser": "flow"
+    "semi": false
   }
 }
