@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "build": "babel src --out-dir lib --ignore src/rapt.test.js && cp src/rapt.js.flow lib",
-    "prepublish": "yarn build",
+    "prepare": "yarn build",
     "release": "release-it"
   },
   "repository": {
