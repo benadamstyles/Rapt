@@ -23,13 +23,18 @@ describe('Rapt methods', () => {
       expect(
         rapt(10)
           .map(String)
+          .map(s => `${s}+`)
           .val()
-      ).toBe('10')
+      ).toBe('10+')
       expect(
-        rapt(10)
+        rapt({a: 1})
+          .map(x => {
+            x.b = 2
+            return x
+          })
           .map(x => x)
           .val()
-      ).toBe(10)
+      ).toEqual({a: 1, b: 2})
     })
   })
 })

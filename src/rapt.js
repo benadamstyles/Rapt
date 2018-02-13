@@ -4,37 +4,37 @@ type MapIf<V, R> = ((true, (V) => R) => Rapt<R>) &
   ((false, (V) => R) => Rapt<V>)
 
 class Rapt<V> {
-  value: V
+  _value: V
   mapIf: MapIf<V, *>
 
   constructor(val: V) {
-    this.value = val
+    this._value = val
   }
 
   map<R>(fn: V => R): Rapt<R> {
-    return new Rapt(fn(this.value))
+    return new Rapt(fn(this._value))
   }
 
-  tap(fn: V => void): Rapt<V> {
-    fn(this.value)
+  tap(fn: V => any): Rapt<V> {
+    fn(this._value)
     return this
   }
 
   forEach<B>(fn: V => B): void {
-    fn(this.value)
+    fn(this._value)
   }
 
   val(): V {
-    return this.value
+    return this._value
   }
 
   value(): V {
-    return this.value
+    return this.val()
   }
 }
 
 Rapt.prototype.mapIf = function mapIf(bool, fn) {
-  return bool ? new Rapt(fn(this.value)) : this
+  return bool ? this.map(fn) : this
 }
 
 export default <V: *>(val: V): Rapt<V> => new Rapt(val)

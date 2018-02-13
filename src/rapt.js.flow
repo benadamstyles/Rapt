@@ -16,4 +16,4 @@ declare class Rapt<V> {
 declare export function isRapt(val: Rapt<*>): true
 declare export function isRapt(val: *): false
 
-declare export default <V: *>(val: V) => Rapt<V>
+declare export default <V>(val: V) => Rapt<V>
