@@ -13,7 +13,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "test": "jest",
+    "test": "yarn run flow check && jest",
     "build": "babel src --out-dir lib --ignore src/rapt.test.js && cp src/rapt.js.flow lib",
     "prepare": "yarn build",
     "release": "release-it"
