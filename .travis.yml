@@ -9,5 +9,4 @@ install:
   - yarn check --integrity
 script:
   # - yarn run lint
-  - yarn run flow check
   - yarn test
