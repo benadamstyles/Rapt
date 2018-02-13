@@ -1,5 +1,8 @@
 # Rapt
 
+[![Build Status](https://travis-ci.org/Leeds-eBooks/rapt.svg?branch=master)](https://travis-ci.org/Leeds-eBooks/rapt)
+[![Greenkeeper badge](https://badges.greenkeeper.io/Leeds-eBooks/rapt.svg)](https://greenkeeper.io/)
+
 Rapt is a small package that wraps any value, allowing you to map over it. A bit like [Lodash](https://lodash.com/)’s [chain](https://lodash.com/docs/4.17.5#chain), or [Gulp](https://gulpjs.com/)’s [pipe](https://github.com/gulpjs/gulp/blob/v3.9.1/docs/API.md), but for values rather than collections or streams.
 
 Rapt does not exist to reduce the number of characters in your code, nor to make your code run faster. For many, it will not even be the clearest way to write your code. But if, like me, you find it easier to read and understand lists of functions than a variety of variable assignments, operators and returns, then Rapt might help you like the code you write a little more.
@@ -9,6 +12,16 @@ It lends itself to a highly functional style of JS programming, allowing you to 
 Rapt is particularly useful when you want to avoid unnecessarily executing expensive operations, but you don’t want to give up your functional style.
 
 ## Examples
+
+```js
+import {Map} from 'immutable'
+
+const processUser = (user: User) =>
+  rapt(user)
+    .map(Map)
+    .tap(logger)
+    .val()
+```
 
 ```js
 // without Rapt

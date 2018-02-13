@@ -12,12 +12,14 @@ untyped-import=off
 [options]
 emoji=true
 include_warnings=true
+munge_underscores=true
+experimental.const_params=true
 
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
 
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
-suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
+suppress_comment=\\(.\\|\n\\)*\\$FlowExpectError
 
 [version]
 ^0.65

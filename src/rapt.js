@@ -39,7 +39,7 @@ class Rapt<V> {
   }
 
   forEach<B>(fn: V => B): void {
-    this.val()
+    fn(this.val())
   }
 
   val(): V {
