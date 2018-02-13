@@ -29,6 +29,7 @@ describe('Rapt methods', () => {
       expect(
         rapt({a: 1})
           .map(x => {
+            // $FlowExpectError
             x.b = 2
             return x
           })
