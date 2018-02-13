@@ -11,6 +11,16 @@ Rapt is particularly useful when you want to avoid unnecessarily executing expen
 ## Examples
 
 ```js
+import {Map} from 'immutable'
+
+const processUser = (user: User) =>
+  rapt(user)
+    .map(Map)
+    .tap(logger)
+    .val()
+```
+
+```js
 // without Rapt
 const countItems = (
   userWantsFilteredItems,
