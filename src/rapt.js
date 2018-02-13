@@ -4,37 +4,76 @@ type MapIf<V, R> = ((true, (V) => R) => Rapt<R>) &
   ((false, (V) => R) => Rapt<V>)
 
 class Rapt<V> {
-  value: V
+  _operations: Array<Function>
+  _sideEffects: Array<boolean>
+  _value: V
+
   mapIf: MapIf<V, *>
 
+  static isImmutable(val: V) {
+    const type = typeof val
+    // TODO:
+    return type === 'number' || type === 'string' || type === 'function'
+  }
+
+  static makeImmutable(val: V): V {
+    if (Rapt.isImmutable(val)) {
+      return val
+    } else {
+      if (Array.isArray(val)) {
+        return val.slice(0)
+      } else {
+        return {...val}
+      }
+    }
+  }
+
   constructor(val: V) {
-    this.value = val
+    this._operations = []
+    this._sideEffects = []
+    this._value = Rapt.makeImmutable(val)
   }
 
-  map<R>(fn: V => R): Rapt<R> {
-    return new Rapt(fn(this.value))
+  _setOperations(
+    existingOps: Array<Function>,
+    existingSideEffects: Array<boolean>,
+    op: Function,
+    sideEffect: boolean = false
+  ) {
+    this._operations.push(...existingOps, op)
+    this._sideEffects.push(...existingSideEffects, sideEffect)
   }
 
-  tap(fn: V => void): Rapt<V> {
-    fn(this.value)
-    return this
+  map<R>(fn: V => R): Rapt<V> {
+    const next = new Rapt(this._value)
+    next._setOperations(this._operations, this._sideEffects, fn)
+    return next
+  }
+
+  tap(fn: V => any): Rapt<V> {
+    const next = new Rapt(this._value)
+    next._setOperations(this._operations, this._sideEffects, fn, true)
+    return next
   }
 
   forEach<B>(fn: V => B): void {
-    fn(this.value)
+    this.val()
   }
 
   val(): V {
-    return this.value
+    return this._operations.reduce((output, fn, i) => {
+      const result = fn(output)
+      return this._sideEffects[i] ? output : result
+    }, this._value)
   }
 
   value(): V {
-    return this.value
+    return this.val()
   }
 }
 
 Rapt.prototype.mapIf = function mapIf(bool, fn) {
-  return bool ? new Rapt(fn(this.value)) : this
+  return bool ? this.map(fn) : this
 }
 
 export default <V: *>(val: V): Rapt<V> => new Rapt(val)
