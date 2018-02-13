@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - '4'
+  - '8'
+cache: yarn
+install:
+  - yarn install
+  - yarn check --integrity
+script:
+  # - yarn run lint
+  - yarn run flow check
+  - yarn test
