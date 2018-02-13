@@ -1,5 +1,6 @@
 # Rapt
 
+[![Build Status](https://travis-ci.org/Leeds-eBooks/rapt.svg?branch=master)](https://travis-ci.org/Leeds-eBooks/rapt)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Leeds-eBooks/rapt.svg)](https://greenkeeper.io/)
 
 Rapt is a small package that wraps any value, allowing you to map over it. A bit like [Lodash](https://lodash.com/)’s [chain](https://lodash.com/docs/4.17.5#chain), or [Gulp](https://gulpjs.com/)’s [pipe](https://github.com/gulpjs/gulp/blob/v3.9.1/docs/API.md), but for values rather than collections or streams.
