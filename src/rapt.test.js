@@ -1,5 +1,6 @@
 // @flow
 
+import {Map as ImmutableMap} from 'immutable'
 import rapt, {isRapt} from './rapt'
 
 describe('isRapt', () => {
@@ -29,6 +30,7 @@ describe('Rapt methods', () => {
       expect(
         rapt({a: 1})
           .map(x => {
+            // $FlowExpectError
             x.b = 2
             return x
           })
@@ -46,21 +48,18 @@ describe('Rapt methods', () => {
     })
 
     it('can be forked', () => {
-      const r = rapt({}).map(x => Object.assign(x, {a: 1}))
+      const r = rapt(ImmutableMap({})).map(x => x.set('a', 1))
       expect(
         r
-          .map(x => Object.assign(x, {a: 2}))
-          .map(x => {
-            x.b = 2
-            return x
-          })
-          .map(x => x.a)
+          .map(x => x.set('a', 2))
+          .map(x => x.set('b', 2))
+          .map(x => x.get('a'))
           .val()
       ).toBe(2)
-      const forked = r.map(x => x.a)
+      const forked = r.map(x => x.get('a'))
       expect(forked.val()).toBe(1)
-      expect(r.val()).toEqual({a: 1})
-      expect(r.val().b).not.toBeDefined()
+      expect(r.val().toJS()).toEqual({a: 1})
+      expect(r.val().get('b')).not.toBeDefined()
     })
   })
 

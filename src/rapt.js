@@ -10,28 +10,10 @@ class Rapt<V> {
 
   mapIf: MapIf<V, *>
 
-  static isImmutable(val: V) {
-    const type = typeof val
-    // TODO:
-    return type === 'number' || type === 'string' || type === 'function'
-  }
-
-  static makeImmutable(val: V): V {
-    if (Rapt.isImmutable(val)) {
-      return val
-    } else {
-      if (Array.isArray(val)) {
-        return val.slice(0)
-      } else {
-        return {...val}
-      }
-    }
-  }
-
   constructor(val: V) {
     this._operations = []
     this._sideEffects = []
-    this._value = Rapt.makeImmutable(val)
+    this._value = val
   }
 
   _setOperations(

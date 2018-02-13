@@ -7,7 +7,7 @@ declare class Rapt<V> {
   map<R>(fn: (V) => R): Rapt<R>;
   mapIf<R>(true, (V) => R): Rapt<R>;
   mapIf<R>(false, (V) => R): Rapt<V>;
-  tap(fn: (V) => void): Rapt<V>;
+  tap(fn: (V) => any): Rapt<V>;
   forEach<B>(fn: (V) => B): void;
   val(): V;
   value(): V;
