@@ -12,6 +12,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "runkitExample": "const {rapt} = require('rapt')",
   "scripts": {
     "test": "yarn run flow check && jest",
     "build": "babel src --out-dir lib --ignore src/rapt.test.js && cp src/rapt.js.flow lib",
