@@ -62,6 +62,10 @@ const countItems = (shouldFilter, hugeArrayOfItems) =>
     .val()
 ```
 
+## Lazy
+
+Rapt is **lazy** – it will not call any functions you pass to `tap`, `map`, or `mapIf` until you call `val` (or `value`) or `forEach`.
+
 ## Types
 
 Rapt is written using [Flow](), and works well with it – with the caveat that currently, due to [an issue with how Flow handles booleans](https://github.com/facebook/flow/issues/4196), the type of the first argument to `Rapt#mapIf()` must be `true | false` rather than `boolean` (no, they’re currently [not the same thing](https://github.com/facebook/flow/issues/4196)!).
