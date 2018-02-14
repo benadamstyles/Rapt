@@ -13,6 +13,34 @@ It lends itself to a highly functional style of JS programming, allowing you to 
 
 Rapt is particularly useful when you want to avoid unnecessarily executing expensive operations, but you don’t want to give up your functional style.
 
+## Installation
+
+Rapt is [available on npm](https://www.npmjs.com/package/rapt).
+
+```sh
+npm install --save rapt
+```
+
+```sh
+yarn add rapt
+```
+
+## Usage
+
+### CommonJS
+
+```js
+const {rapt} = require('rapt')
+// or
+const rapt = require('rapt').default
+```
+
+### ES Modules
+
+```js
+import rapt from 'rapt'
+```
+
 ## Examples
 
 ```js
@@ -48,7 +76,8 @@ const countItems = (shouldFilter, hugeArrayOfItems) => {
   if (shouldFilter) {
     arr = arr.filter(expensiveFilterFunction)
   }
-  console.log(count)
+  const count = arr.length
+  console.log(`We have ${count} items`)
   return count
 }
 
@@ -70,6 +99,8 @@ Rapt is written using [Flow](https://flow.org/), and works well with it – with
 
 ### `map(Function)`
 
+Transform your wrapped value by mapping over it.
+
 ```js
 rapt('hello')
   .map(s => `${s} world`)
@@ -77,6 +108,8 @@ rapt('hello')
 ```
 
 ### `mapIf(true | false, Function)`
+
+Transform your wrapped value by mapping over it, if another value is truthy. Otherwise, do nothing and pass on the value for further chaining.
 
 ```js
 rapt('hello')
@@ -90,6 +123,8 @@ rapt('hello')
 
 ### `tap(Function)`
 
+Execute a side effect on your wrapped value without breaking the chain.
+
 ```js
 rapt('hello')
   .tap(s => console.log(s)) // logs 'hello'
@@ -99,9 +134,18 @@ rapt('hello')
 rapt('hello')
   .tap(s => `${s} world`)
   .val() // returns 'hello'
+
+// Careful of side effects when working with a mutable value!
+rapt({a: 1})
+  .tap(obj => {
+    obj.b = 2
+  })
+  .val() // returns {a: 1, b: 2}
 ```
 
 ### `forEach(Function)`
+
+Execute a side effect on your wrapped value and end the chain (use if you don’t need to return the wrapped value).
 
 ```js
 rapt('hello')
@@ -112,6 +156,8 @@ rapt('hello').forEach(s => `${s} world`) // returns undefined
 ```
 
 ### `val()` or `value()`
+
+Unwrap your value and return it.
 
 ```js
 rapt('hello').map(s => `${s} world`) // returns an instance of Rapt
