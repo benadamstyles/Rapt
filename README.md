@@ -68,12 +68,59 @@ Rapt is written using [Flow](), and works well with it – with the caveat that 
 
 ## API
 
-### map(Function)
+### `map(Function)`
 
-### mapIf(true | false, Function)
+```js
+rapt('hello')
+  .map(s => `${s} world`)
+  .val() // returns 'hello world'
+```
 
-### tap(Function)
+### `mapIf(true | false, Function)`
 
-### forEach(Function)
+```js
+rapt('hello')
+  .mapIf(true, s => `${s} world`)
+  .val() // returns 'hello world'
 
-### val() | value()
+rapt('hello')
+  .mapIf(false, s => `${s} world`)
+  .val() // returns 'hello'
+```
+
+### `tap(Function)`
+
+```js
+rapt('hello')
+  .tap(s => console.log(s)) // logs 'hello'
+  .map(s => `${s} world`)
+  .val() // returns 'hello world'
+
+rapt('hello')
+  .tap(s => `${s} world`)
+  .val() // returns 'hello'
+```
+
+### `forEach(Function)`
+
+```js
+rapt('hello')
+  .map(s => `${s} world`)
+  .forEach(s => console.log(s)) // logs 'hello world'
+
+rapt('hello').forEach(s => `${s} world`) // returns undefined
+```
+
+### `val()` or `value()`
+
+```js
+rapt('hello').map(s => `${s} world`) // returns an instance of Rapt
+
+rapt('hello')
+  .map(s => `${s} world`)
+  .val() // returns 'hello world'
+
+rapt('hello')
+  .map(s => `${s} world`)
+  .value() // returns 'hello world'
+```
