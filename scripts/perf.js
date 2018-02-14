@@ -1,6 +1,7 @@
 // @flow
 
-const rapt = require('../lib/rapt').default
+const {maybe} = require('maybes')
+const {rapt} = require('../lib/rapt')
 
 const iter = Math.pow(10, 7)
 
@@ -9,9 +10,15 @@ const reset = '\x1b[0m'
 
 const sampleRapt = rapt('')
 const label = `${fgCyan}${
-  sampleRapt._operations
-    ? 'Lazy array'
-    : sampleRapt._output ? 'Lazy closures' : 'Eager'
+  // $FlowExpectError
+  maybe(sampleRapt._operations)
+    .map(() => 'Lazy array')
+    .orJust(
+      // $FlowExpectError
+      maybe(sampleRapt._output)
+        .map(() => 'Lazy closures')
+        .orJust('Eager')
+    )
 }${reset}`
 
 console.time(label)

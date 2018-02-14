@@ -46,6 +46,7 @@
     "flow-typed": "^2.3.0",
     "immutable": "^3.8.2",
     "jest": "^22.2.1",
+    "maybes": "^0.2.3",
     "release-it": "^7.0.0"
   },
   "prettier": {
