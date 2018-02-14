@@ -74,4 +74,22 @@ describe('Rapt methods', () => {
       expect(tapper).toHaveBeenCalledWith('5')
     })
   })
+
+  describe('forEach', () => {
+    it('returns undefined', () => {
+      expect(rapt({}).forEach(x => x)).not.toBeDefined()
+    })
+
+    it('is called with the expected value', () => {
+      const cb = jest.fn()
+      const obj = {}
+      rapt(obj)
+        .map(x => {
+          x.a = 1
+          return x
+        })
+        .forEach(cb)
+      expect(cb).toHaveBeenCalledWith(obj)
+    })
+  })
 })
