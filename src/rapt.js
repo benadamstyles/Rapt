@@ -4,9 +4,9 @@ type MapIf<V, R> = ((true, (V) => R) => Rapt<R>) &
   ((false, (V) => R) => Rapt<V>)
 
 class Rapt<V> {
-  _operations: Array<Function>
+  _operations: Array<(*) => *>
   _sideEffects: Array<boolean>
-  _value: V
+  _value: *
 
   mapIf: MapIf<V, *>
 
@@ -17,16 +17,16 @@ class Rapt<V> {
   }
 
   _setOperations(
-    existingOps: Array<Function>,
+    existingOps: Array<(*) => *>,
     existingSideEffects: Array<boolean>,
-    op: Function,
+    op: (*) => *,
     sideEffect: boolean = false
   ) {
     this._operations.push(...existingOps, op)
     this._sideEffects.push(...existingSideEffects, sideEffect)
   }
 
-  map<R>(fn: V => R): Rapt<V> {
+  map<R>(fn: V => R): Rapt<R> {
     const next = new Rapt(this._value)
     next._setOperations(this._operations, this._sideEffects, fn)
     return next
@@ -38,7 +38,7 @@ class Rapt<V> {
     return next
   }
 
-  forEach<B>(fn: V => B): void {
+  forEach(fn: V => any): void {
     fn(this.val())
   }
 
@@ -58,6 +58,6 @@ Rapt.prototype.mapIf = function mapIf(bool, fn) {
   return bool ? this.map(fn) : this
 }
 
-export default <V: *>(val: V): Rapt<V> => new Rapt(val)
+export const isRapt = (val: *) => val instanceof Rapt
 
-export const isRapt = (val: mixed) => val instanceof Rapt
+export default <V: *>(val: V): Rapt<V> => new Rapt(val)

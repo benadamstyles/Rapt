@@ -1,14 +1,11 @@
 // @flow
 
-type MapIf<V, R> = ((true, (V) => R) => Rapt<R>) &
-  ((false, (V) => R) => Rapt<V>)
-
 declare class Rapt<V> {
   map<R>(fn: (V) => R): Rapt<R>;
   mapIf<R>(true, (V) => R): Rapt<R>;
   mapIf<R>(false, (V) => R): Rapt<V>;
   tap(fn: (V) => any): Rapt<V>;
-  forEach<B>(fn: (V) => B): void;
+  forEach(fn: (V) => any): void;
   val(): V;
   value(): V;
 }
