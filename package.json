@@ -15,6 +15,7 @@
   "scripts": {
     "test": "yarn run flow check && jest",
     "build": "babel src --out-dir lib --ignore src/rapt.test.js && cp src/rapt.js.flow lib",
+    "perf": "yarn run build && node ./scripts/perf.js",
     "prepare": "yarn build",
     "release": "release-it"
   },
