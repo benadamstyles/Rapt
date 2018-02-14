@@ -2,7 +2,7 @@
 
 const rapt = require('../lib/rapt').default
 
-const iter = 1000000
+const iter = Math.pow(10, 7)
 
 const fgCyan = '\x1b[36m'
 const reset = '\x1b[0m'
