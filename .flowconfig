@@ -8,6 +8,7 @@ flow-typed
 [lints]
 all=warn
 untyped-import=off
+unclear-type=off
 
 [options]
 emoji=true

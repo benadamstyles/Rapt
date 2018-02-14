@@ -1,8 +1,5 @@
 // @flow
 
-type MapIf<V, R> = ((true, (V) => R) => Rapt<R>) &
-  ((false, (V) => R) => Rapt<V>)
-
 declare class Rapt<V> {
   map<R>(fn: (V) => R): Rapt<R>;
   mapIf<R>(true, (V) => R): Rapt<R>;

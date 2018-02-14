@@ -37,6 +37,6 @@ Rapt.prototype.mapIf = function mapIf(bool, fn) {
   return bool ? this.map(fn) : this
 }
 
-export default <V: *>(val: V): Rapt<V> => new Rapt(val)
+export const isRapt = (val: *) => val instanceof Rapt
 
-export const isRapt = (val: mixed) => val instanceof Rapt
+export default <V: *>(val: V): Rapt<V> => new Rapt(val)
