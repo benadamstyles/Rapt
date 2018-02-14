@@ -1,5 +1,6 @@
 // @flow
 
+import {Map as ImmutableMap} from 'immutable'
 import rapt, {isRapt} from './rapt'
 
 describe('isRapt', () => {
@@ -36,6 +37,32 @@ describe('Rapt methods', () => {
           .map(x => x)
           .val()
       ).toEqual({a: 1, b: 2})
+    })
+
+    it('can be forked', () => {
+      const r = rapt(ImmutableMap({})).map(x => x.set('a', 1))
+      expect(
+        r
+          .map(x => x.set('a', 2))
+          .map(x => x.set('b', 2))
+          .map(x => x.get('a'))
+          .val()
+      ).toBe(2)
+      const forked = r.map(x => x.get('a'))
+      expect(forked.val()).toBe(1)
+      expect(r.val().toJS()).toEqual({a: 1})
+      expect(r.val().get('b')).not.toBeDefined()
+    })
+  })
+
+  describe('tap', () => {
+    it('is called with the expected value', () => {
+      const tapper = jest.fn(x => `${x}+`)
+      const r = rapt(5)
+        .map(String)
+        .tap(tapper)
+      expect(r.val()).toBe('5')
+      expect(tapper).toHaveBeenCalledWith('5')
     })
   })
 
