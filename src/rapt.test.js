@@ -55,6 +55,47 @@ describe('Rapt methods', () => {
     })
   })
 
+  describe('flatMap', () => {
+    it('unwraps a Rapt when one is returned by the user', () => {
+      expect(
+        isRapt(
+          rapt(5)
+            .map(rapt)
+            .val()
+        )
+      ).toBe(true)
+      expect(
+        rapt(5)
+          .flatMap(rapt)
+          .val()
+      ).toBe(5)
+    })
+
+    it('returns the value if used on a func that doesn’t return a Rapt', () => {
+      // $FlowExpectError
+      expect(rapt(5).flatMap(x => x)).toBe(5)
+    })
+  })
+
+  describe('flatten', () => {
+    it('has no effect when the wrapped value is not a Rapt', () => {
+      expect(
+        rapt(5)
+          .flatten()
+          // $FlowFixMe
+          .val()
+      ).toBe(5)
+    })
+    it('flattens a nested Rapt', () => {
+      expect(
+        rapt(5)
+          .map(rapt)
+          .flatten()
+          .val()
+      ).toBe(5)
+    })
+  })
+
   describe('tap', () => {
     it('is called with the expected value', () => {
       const tapper = jest.fn(x => `${x}+`)

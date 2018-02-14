@@ -15,6 +15,19 @@ class Rapt<V> {
     return new Rapt(fn(this._value))
   }
 
+  flatMap<R>(fn: V => Rapt<R>): Rapt<R> {
+    return fn(this._value)
+  }
+
+  flatten(): V {
+    if (isRapt(this._value)) {
+      return this._value
+    } else {
+      // $FlowFixMe
+      return this
+    }
+  }
+
   tap(fn: V => any): Rapt<V> {
     fn(this._value)
     return this
@@ -29,7 +42,7 @@ class Rapt<V> {
   }
 
   value(): V {
-    return this.val()
+    return this._value
   }
 }
 
@@ -37,6 +50,6 @@ Rapt.prototype.mapIf = function mapIf(bool, fn) {
   return bool ? this.map(fn) : this
 }
 
-export const isRapt = (val: *) => val instanceof Rapt
+export const isRapt = (val: *): boolean %checks => val instanceof Rapt
 export const rapt = <V: *>(val: V): Rapt<V> => new Rapt(val)
 export default rapt

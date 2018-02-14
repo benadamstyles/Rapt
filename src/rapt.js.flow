@@ -1,9 +1,12 @@
 // @flow
 
 declare class Rapt<V> {
+  constructor(V): void;
   map<R>(fn: (V) => R): Rapt<R>;
   mapIf<R>(true, (V) => R): Rapt<R>;
   mapIf<R>(false, (V) => R): Rapt<V>;
+  flatMap<R>(fn: (V) => Rapt<R>): Rapt<R>;
+  flatten(): V;
   tap(fn: (V) => any): Rapt<V>;
   forEach(fn: (V) => any): void;
   val(): V;
