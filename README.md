@@ -97,7 +97,7 @@ Rapt is written using [Flow](https://flow.org/), and works well with it – with
 
 ## API
 
-### `map(Function)`
+### `.map(Function)`
 
 Transform your wrapped value by mapping over it.
 
@@ -107,7 +107,7 @@ rapt('hello')
   .val() // returns 'hello world'
 ```
 
-### `mapIf(true | false, Function)`
+### `.mapIf(true | false, Function)`
 
 Transform your wrapped value by mapping over it, if another value is truthy. Otherwise, do nothing and pass on the value for further chaining.
 
@@ -121,7 +121,30 @@ rapt('hello')
   .val() // returns 'hello'
 ```
 
-### `tap(Function)`
+### `.flatMap(Function)`
+
+Like `.map()`, but you should return a `Rapt` in your function (equivalent to `.map().flatten()`).
+
+```js
+rapt('hello')
+  .flatMap(s => rapt(`${s} world`).map(s => `${s}!`))
+  .map(s => s.toUpperCase())
+  .val() // returns 'HELLO WORLD!'
+```
+
+### `.flatten()`
+
+Unwraps a “nested” `Rapt` (see also [`.flatMap()`](#flatmapfunction)).
+
+```js
+rapt('hello')
+  .map(s => rapt(`${s} world`).map(s => `${s}!`))
+  .flatten()
+  .map(s => s.toUpperCase())
+  .val() // returns 'HELLO WORLD!'
+```
+
+### `.tap(Function)`
 
 Execute a side effect on your wrapped value without breaking the chain.
 
@@ -143,7 +166,7 @@ rapt({a: 1})
   .val() // returns {a: 1, b: 2}
 ```
 
-### `forEach(Function)`
+### `.forEach(Function)`
 
 Execute a side effect on your wrapped value and end the chain (use if you don’t need to return the wrapped value).
 
@@ -155,7 +178,7 @@ rapt('hello')
 rapt('hello').forEach(s => `${s} world`) // returns undefined
 ```
 
-### `val()` or `value()`
+### `.val()` or `.value()`
 
 Unwrap your value and return it.
 
@@ -169,4 +192,25 @@ rapt('hello')
 rapt('hello')
   .map(s => `${s} world`)
   .value() // returns 'hello world'
+```
+
+### `isRapt()`
+
+A predicate function to check if a value is wrapped with `Rapt`.
+
+```js
+import {isRapt} from 'rapt'
+// or
+const {isRapt} = require('rapt')
+
+const a = rapt(3)
+  .map(x => x * 2)
+  .val()
+
+const b = rapt(3).map(x => x * 2)
+
+isRapt(5) // returns false
+isRapt(rapt(5)) // returns true
+isRapt(a) // returns false
+isRapt(b) // returns true
 ```
