@@ -1,6 +1,4 @@
-![Rapt logo](https://leeds-ebooks.co.uk/images/oss/min/rapt.png){: style="height:36px; width:36px"}
-
-# Rapt
+![Rapt logo](https://leeds-ebooks.co.uk/images/oss/min/rapt-100.png)
 
 [![npm version](https://badge.fury.io/js/rapt.svg)](https://www.npmjs.com/package/rapt)
 [![Build Status](https://travis-ci.org/Leeds-eBooks/rapt.svg?branch=master)](https://travis-ci.org/Leeds-eBooks/rapt)
