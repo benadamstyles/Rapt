@@ -1,6 +1,7 @@
 // @flow
 
 import {Map as ImmutableMap} from 'immutable'
+// eslint-disable-next-line import/no-named-as-default
 import rapt, {isRapt} from './rapt'
 
 describe('isRapt', () => {
@@ -31,7 +32,7 @@ describe('Rapt methods', () => {
         rapt({a: 1})
           .map(x => {
             // $FlowExpectError
-            x.b = 2
+            x.b = 2 // eslint-disable-line immutable/no-mutation
             return x
           })
           .map(x => x)
@@ -117,6 +118,7 @@ describe('Rapt methods', () => {
       const obj = {}
       rapt(obj)
         .map(x => {
+          // eslint-disable-next-line immutable/no-mutation
           x.a = 1
           return x
         })

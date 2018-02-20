@@ -8,6 +8,7 @@ class Rapt<V> {
   mapIf: MapIf<V, *>
 
   constructor(val: V) {
+    // eslint-disable-next-line immutable/no-mutation
     this._value = val
   }
 
@@ -46,10 +47,14 @@ class Rapt<V> {
   }
 }
 
+// eslint-disable-next-line immutable/no-mutation
 Rapt.prototype.mapIf = function mapIf(bool, fn) {
   return bool ? this.map(fn) : this
 }
 
-export const isRapt = (val: *): boolean %checks => val instanceof Rapt
+export function isRapt(val: *): boolean %checks {
+  return val instanceof Rapt
+}
+
 export const rapt = <V: *>(val: V): Rapt<V> => new Rapt(val)
 export default rapt
