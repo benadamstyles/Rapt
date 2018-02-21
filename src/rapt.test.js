@@ -32,7 +32,7 @@ describe('Rapt methods', () => {
         rapt({a: 1})
           .map(x => {
             // $FlowExpectError
-            x.b = 2 // eslint-disable-line immutable/no-mutation
+            x.b = 2 // eslint-disable-line fp/no-mutation
             return x
           })
           .map(x => x)
@@ -118,7 +118,7 @@ describe('Rapt methods', () => {
       const obj = {}
       rapt(obj)
         .map(x => {
-          // eslint-disable-next-line immutable/no-mutation
+          // eslint-disable-next-line fp/no-mutation
           x.a = 1
           return x
         })

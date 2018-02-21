@@ -1,1 +1,10 @@
 extends: rapt
+overrides:
+  - files: src/*.flow
+    rules:
+      no-redeclare: 0
+  - files: scripts/perf.js
+    rules:
+      fp/no-loops: 0
+      fp/no-let: 0
+      fp/no-mutation: 0

@@ -8,7 +8,6 @@ class Rapt<V> {
   mapIf: MapIf<V, *>
 
   constructor(val: V) {
-    // eslint-disable-next-line immutable/no-mutation
     this._value = val
   }
 
@@ -47,7 +46,7 @@ class Rapt<V> {
   }
 }
 
-// eslint-disable-next-line immutable/no-mutation
+// eslint-disable-next-line fp/no-mutation
 Rapt.prototype.mapIf = function mapIf(bool, fn) {
   return bool ? this.map(fn) : this
 }
