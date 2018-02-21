@@ -22,7 +22,6 @@ const label = `${fgCyan}${
 }${reset}`
 
 console.time(label)
-// eslint-disable-next-line immutable/no-let
 for (let i = 0; i < iter; i += 1) {
   rapt([1, 2, 3])
     .map(x => x.concat([4]))
