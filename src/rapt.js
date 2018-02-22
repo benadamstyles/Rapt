@@ -19,11 +19,10 @@ class Rapt<V> {
     return fn(this._value)
   }
 
-  flatten(): V {
+  flatten(): Rapt<$Call<ResolveRapt, V>> {
     if (isRapt(this._value)) {
       return this._value
     } else {
-      // $FlowFixMe
       return this
     }
   }
@@ -45,6 +44,8 @@ class Rapt<V> {
     return this._value
   }
 }
+
+type ResolveRapt = <V>(Rapt<V> | V) => V
 
 // eslint-disable-next-line fp/no-mutation
 Rapt.prototype.mapIf = function mapIf(bool, fn) {

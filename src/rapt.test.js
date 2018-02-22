@@ -83,7 +83,6 @@ describe('Rapt methods', () => {
       expect(
         rapt(5)
           .flatten()
-          // $FlowFixMe
           .val()
       ).toBe(5)
     })

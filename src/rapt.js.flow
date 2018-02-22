@@ -6,12 +6,14 @@ declare class Rapt<V> {
   mapIf<R>(true, (V) => R): Rapt<R>;
   mapIf<R>(false, (V) => R): Rapt<V>;
   flatMap<R>(fn: (V) => Rapt<R>): Rapt<R>;
-  flatten(): V;
+  flatten(): Rapt<$Call<ResolveRapt, V>>;
   tap(fn: (V) => any): Rapt<V>;
   forEach(fn: (V) => any): void;
   val(): V;
   value(): V;
 }
+
+type ResolveRapt = <V>(Rapt<V> | V) => V
 
 declare export function isRapt(val: Rapt<*>): true
 declare export function isRapt(val: *): false
