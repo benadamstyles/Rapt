@@ -126,3 +126,70 @@ describe('Rapt methods', () => {
     })
   })
 })
+
+describe('Usage patterns', () => {
+  describe('async', () => {
+    const p = () => new Promise(r => setTimeout(() => r('resolved'), 10))
+
+    describe('with await', () => {
+      it('.val() returns an unresolved Promise', async () => {
+        const r = rapt(await p())
+          .map(s => {
+            expect(s).toBe('resolved')
+            return p()
+          })
+          .val()
+        expect(r).toEqual(expect.any(Promise))
+        expect(await r).toBe('resolved')
+      })
+    })
+
+    describe('with Promises', () => {
+      it('.val() returns an unresolved Promise', () =>
+        rapt(p())
+          .map(promise => promise.then(s => s.toUpperCase()))
+          .map(promise => promise.then(s => expect(s).toBe('RESOLVED')))
+          .val())
+    })
+
+    describe('using .thenMap()', () => {
+      it('works with a Promised value', async () => {
+        const r = rapt(p())
+          .thenMap(s => {
+            expect(s).toBe('resolved')
+            return s.toUpperCase()
+          })
+          .thenMap(s =>
+            s
+              .split('')
+              .reverse()
+              .join('')
+          )
+          .val()
+        expect(r).toEqual(expect.any(Promise))
+        expect(await r).toBe('DEVLOSER')
+      })
+
+      it('works with an immediate value', async () => {
+        const tracker = jest.fn()
+        const r = rapt('resolved')
+          .thenMap(s => {
+            tracker()
+            expect(s).toBe('resolved')
+            return s.toUpperCase()
+          })
+          .thenMap(s =>
+            s
+              .split('')
+              .reverse()
+              .join('')
+          )
+          .val()
+        expect(tracker).not.toHaveBeenCalled()
+        expect(r).toEqual(expect.any(Promise))
+        expect(await r).toBe('DEVLOSER')
+        expect(tracker).toHaveBeenCalled()
+      })
+    })
+  })
+})

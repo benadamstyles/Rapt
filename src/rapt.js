@@ -1,5 +1,7 @@
 // @flow
 
+type GetPromiseValue = <V>(Promise<V>) => V
+
 type MapIf<V, R> = ((true, (V) => R) => Rapt<R>) &
   ((false, (V) => R) => Rapt<V>)
 
@@ -17,6 +19,12 @@ class Rapt<V> {
 
   flatMap<R>(fn: V => Rapt<R>): Rapt<R> {
     return fn(this._value)
+  }
+
+  thenMap<R>(
+    fn: ($Call<GetPromiseValue, $Call<typeof Promise.resolve, V>>) => R
+  ): Rapt<Promise<R>> {
+    return new Rapt(Promise.resolve(this._value).then(fn))
   }
 
   flatten(): Rapt<$Call<ResolveRapt, V>> {

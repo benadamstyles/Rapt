@@ -1,11 +1,16 @@
 // @flow
 
+type GetPromiseValue = <V>(Promise<V> | V) => V
+
 declare class Rapt<V> {
   constructor(V): void;
   map<R>(fn: (V) => R): Rapt<R>;
   mapIf<R>(true, (V) => R): Rapt<R>;
   mapIf<R>(false, (V) => R): Rapt<V>;
   flatMap<R>(fn: (V) => Rapt<R>): Rapt<R>;
+  thenMap<R>(
+    fn: ($Call<GetPromiseValue, $Call<typeof Promise.resolve, V>>) => R
+  ): Rapt<Promise<R>>;
   flatten(): Rapt<$Call<ResolveRapt, V>>;
   tap(fn: (V) => any): Rapt<V>;
   forEach(fn: (V) => any): void;
