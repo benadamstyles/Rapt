@@ -96,6 +96,33 @@ const countItems = (shouldFilter, hugeArrayOfItems) =>
 
 Rapt is written using [Flow](https://flow.org/), and works well with it – with the caveat that currently, due to [an issue with how Flow handles booleans](https://github.com/facebook/flow/issues/4196), the type of the first argument to `Rapt#mapIf()` must be `true | false` rather than `boolean` (no, they’re currently [not the same thing](https://github.com/facebook/flow/issues/4196)!).
 
+## Promises / async
+
+Rapt offers first-class support for asynchronous JavaScript with [`.thenMap()`](#thenmapfunction), but it also works well without that method:
+
+```js
+// async function, returns a Promise
+const fetchUserFromDatabase = userId => database.child('users').child(userId)
+
+// sync function, returns the userObject, mutated
+const processUser = userObject => doSomethingToTheUserObject(userObject)
+
+const getUser = userId =>
+  rapt(userId)
+    .map(fetchUserFromDatabase)
+    .thenMap(processUser)
+    .val() // returns a promise because we used fetchUserFromDatabase
+
+// Equivalent to:
+const getUser = userId =>
+  rapt(userId)
+    .map(fetchUserFromDatabase)
+    .map(userPromise => userPromise.then(processUser))
+    .val() // returns a promise because we used fetchUserFromDatabase
+
+await getUser('user001')
+```
+
 ## API
 
 ### `.map(Function)`
@@ -131,6 +158,26 @@ rapt('hello')
   .flatMap(s => rapt(`${s} world`).map(s => `${s}!`))
   .map(s => s.toUpperCase())
   .val() // returns 'HELLO WORLD!'
+```
+
+### `.thenMap(Function)`
+
+Like `.map()`, but best used in a `rapt` chain that wraps a `Promise`. It calls `Promise.resolve()` on your wrapped value however, so it will also work on immediate values.
+
+```js
+const asyncHello = () => new Promise(resolve => resolve('hello'))
+
+rapt(asyncHello())
+  .thenMap(s => `${s} world`)
+  .thenMap(s => s.toUpperCase())
+  .val() // returns a Promise of 'HELLO WORLD!'
+  .then(str => console.log(str)) // logs 'HELLO WORLD!'
+
+rapt('hello')
+  .thenMap(s => `${s} world`)
+  .thenMap(s => s.toUpperCase())
+  .val() // returns a Promise of 'HELLO WORLD!'
+  .then(str => console.log(str)) // logs 'HELLO WORLD!'
 ```
 
 ### `.flatten()`
