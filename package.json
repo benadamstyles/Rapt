@@ -51,7 +51,7 @@
     "eslint-plugin-flowtype": "^2.45.0",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-import": "^2.8.0",
-    "flow-bin": "^0.66.0",
+    "flow-bin": "^0.67.1",
     "flow-typed": "^2.3.0",
     "immutable": "^3.8.2",
     "jest": "^22.2.1",
