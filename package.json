@@ -1,6 +1,6 @@
 {
   "name": "rapt",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Wrap any value so you can map over it",
   "main": "lib/rapt.js",
   "files": [
