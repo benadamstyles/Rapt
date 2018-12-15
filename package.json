@@ -58,7 +58,7 @@
     "immutable": "^3.8.2",
     "jest": "^22.4.3",
     "maybes": "^0.2.3",
-    "release-it": "^7.2.1"
+    "release-it": "^9.1.0"
   },
   "prettier": {
     "singleQuote": true,
