@@ -1834,9 +1834,10 @@ eslint-ast-utils@^1.0.0:
     lodash.get "^4.4.2"
     lodash.zip "^4.2.0"
 
-eslint-config-rapt@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-rapt/-/eslint-config-rapt-1.4.0.tgz#9f130f7883172894ef07b784f4c6b4441cd72420"
+eslint-config-rapt@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-rapt/-/eslint-config-rapt-1.5.1.tgz#12cbd0b0f81313b4ada2cdbc4b763aac723eaa0b"
+  integrity sha512-wfA8vOOlDnRsQVhWfNOIR2EDcEtF67P/SpESgdxG5UTs/G1m+SUdLGP32oIlVXqOHgpClDZZhgnuQ8trI1J6Zg==
 
 eslint-import-resolver-node@^0.3.1:
   version "0.3.2"
